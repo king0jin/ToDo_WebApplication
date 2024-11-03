@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax로 데이터 삽입하기</title>
+</head>
+<body onload="sendPostRequest()">
+    <h1>Todo Insert</h1>
+</body>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function sendPostRequest() {
+        const postdata = {
+            'id': 2,
+            'userid': '허재석',
+            'title': '영진이 놀아주기',
+            'isdone': true,
+            'untildate': '2024-11-02'
+        };
+        fetch('/todoapp/todo/', {
+            method: 'POST', 
+            headers: {'Content-Type' : 'application/json', 'X-CSRFToken': getCookie('csrftoken')}, 
+            body: JSON.stringify(postdata)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('요청 실패 ' + response.status);
+                }
+                return response.json();  //data로 반환
+            })
+            .then(postdata => {
+                alert('데이터가 반영되었습니다.');
+                window.location.href = '/todoapp/TodoView/';
+            })
+            .catch(error => {
+                alert('요청 중 오류가 발생했습니다: ' + error.message);
+            });
+    }
+</script>
+</html>

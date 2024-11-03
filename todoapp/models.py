@@ -6,3 +6,6 @@ class Todo(models.Model):
     title = models.CharField(max_length=100)
     isdone= models.BooleanField(default=False)
     untildate = models.DateField()
+
+    def __str__(self):
+        return self.title
