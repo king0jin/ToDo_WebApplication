@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo LIST</title>
+</head>
+<body>
+    <div align="center" class="body">
+        <h2>ToDo LIST !!</h2>
+        <table border="1">
+            <tr class="header">
+                <th align="center" width=50>순서</th>
+                <th align="center" width=80>이름</th>
+                <th align="center" width=200>해야할 일</th>
+                <th align="center" width=60>확인</th>
+                <th align="center" width=150>마감 기한</th>
+            </tr>
+            {% for item in data %}
+                <tr class="record">
+                    <td align="center">{{item.id}}</td>
+                    <td align="center">{{item.userid}}</td>
+                    <td align="center">{{item.title}}</td>
+                    <td align="center">{{item.isdone}}</td>
+                    <td align="center">{{item.untildate}}</td>
+                </tr>
+            {%  endfor %}
+        </table>
+    </div>
+</body>
+</html>
